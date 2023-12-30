@@ -1,0 +1,92 @@
+﻿==> Baza danych [oryginalna nazwa bazy danych]: ADV_activity
+
+==> Nazwa bazy danych na serwerze lokalnym: 5_adv_activity
+
+==> Tabele w bazie danych:
+
+(1) adv_books (kolumny: id, rodzaj_ksiazki, autor, rok_rozpoczecia)
+* INSERT INTO adv_books (rodzaj_ksiazki, autor, rok_rozpoczecia)
+VALUES ('muzyczna', 'Łukasz Wojciech M. Tworzydło', '2018'),
+('edukacyjna', 'Łukasz Wojciech M. Tworzydło', '2019'),
+('naukowa', 'Łukasz Wojciech M. Tworzydło', '2019'),
+('religijna', 'Łukasz Wojciech M. Tworzydło', '2019'),
+('projektowa', 'Łukasz Wojciech M. Tworzydło', '2019')
+
+(2) adv_websites (kolumny: id, nazwa_strony, rodzaj_strony, tworca_strony, strona_www)
+* INSERT INTO adv_websites (nazwa_strony, rodzaj_strony, tworca_strony, strona_www) VALUES
+('ADV Publishing', 'wydawnicza', 'Łukasz Wojciech M. Tworzydło', 'https://advpublishing.wordpress.com/'),
+('Just Travel Today', 'podróżnicza', 'Łukasz Wojciech M. Tworzydło', 'https://just-travel-today.com/'),
+('AVANT DE VENIR', 'muzyczna', 'Łukasz Wojciech M. Tworzydło', 'https://avantdevenir.wordpress.com/'),
+('Edukacja Kreacja', 'edukacyjna', 'Łukasz Wojciech M. Tworzydło', 'https://edukacjakreacja.wordpress.com/'),
+('Wiedza Przyszłości', 'naukowa', 'Łukasz Wojciech M. Tworzydło', 'https://wiedzaprzyszlosci.wordpress.com/'),
+('Projekty AD', 'projektowa', 'Łukasz Wojciech M. Tworzydło', 'https://projektyad.wordpress.com/'),
+('Sacris Coelum', 'religijna', 'Łukasz Wojciech M. Tworzydło', 'https://sacriscoelum.wordpress.com/')
+
+(3) adv_travel (kolumny: id, kraj, nazwa_filmu, tworca, nazwa_kanalu, www_youtube)
+* INSERT INTO adv_travel (kraj, nazwa_filmu, twórca, nazwa_kanału, www_youtube) VALUES
+('Israel & Jordan', 'Let's start our journey!', 'JustTravelToday & luqastro :>', 'Just Travel Today', 'https://youtu.be/g6kZjtrKQtw'),
+('Israel & Jordan', 'The Holy Land, and even more!', 'JustTravelToday & luqastro :>', 'Just Travel Today', 'https://youtu.be/-yAXYJTpksU'),
+('Israel', 'Let’s drive together!', 'JustTravelToday & luqastro :>', 'Just Travel Today', 'https://youtu.be/5DdLthH5ivg'),
+('Israel', 'Driving through Israel… breathtaking views!', 'JustTravelToday & luqastro :>', 'Just Travel Today', 'https://youtu.be/bwnLhjKIdcc'),
+('Israel & Jordan', 'The Last Expedition!', 'JustTravelToday & luqastro :>', 'Just Travel Today', 'https://youtu.be/BhQvj6F6Wk4')
+
+==> Zapytania do bazy danych [o wypisanie wartości]:
+# a) wyświetl rodzaje ksiązek, które rozpoczęto publikować w 2018 roku
+# SELECT rodzaj_ksiazki FROM adv_books WHERE rok_rozpoczecia ='2018'
+# b) wyświetl rodzaje ksiązek, które rozpoczęto publikować w 2019 roku
+# SELECT rodzaj_ksiazki FROM adv_books WHERE rok_rozpoczecia ='2019'
+# c) wyświetl wszystkie rodzaje książek [zarówno z 2019, jak i z 2018 roku]
+# SELECT rodzaj_ksiazki, rok_rozpoczecia FROM adv_books
+# d) wybierz rodzaj książki oraz wyświetl kiedy rozpoczęto ich publikację
+# wraz z nazwą strony oraz odnośnikiem do niniejszej strony internetowej
+# =>>> muzyczna
+# SELECT adv_books.rodzaj_ksiazki, adv_books.rok_rozpoczecia, adv_websites.nazwa_strony,
+adv_websites.strona_www FROM adv_books JOIN adv_websites ON adv_books.autor = adv_websites.tworca_strony
+WHERE adv_books.rodzaj_ksiazki = 'muzyczna' AND adv_websites.rodzaj_strony = 'muzyczna'
+# =>>> edukacyjna
+# SELECT adv_books.rodzaj_ksiazki, adv_books.rok_rozpoczecia, adv_websites.nazwa_strony,
+adv_websites.strona_www FROM adv_books JOIN adv_websites ON adv_books.autor = adv_websites.tworca_strony
+WHERE adv_books.rodzaj_ksiazki = 'edukacyjna' AND adv_websites.rodzaj_strony = 'edukacyjna'
+# =>>> naukowa
+# SELECT adv_books.rodzaj_ksiazki, adv_books.rok_rozpoczecia, adv_websites.nazwa_strony,
+adv_websites.strona_www FROM adv_books JOIN adv_websites ON adv_books.autor = adv_websites.tworca_strony
+WHERE adv_books.rodzaj_ksiazki = 'naukowa' AND adv_websites.rodzaj_strony = 'naukowa'
+# =>>> religijna
+# SELECT adv_books.rodzaj_ksiazki, adv_books.rok_rozpoczecia, adv_websites.nazwa_strony,
+adv_websites.strona_www FROM adv_books JOIN adv_websites ON adv_books.autor = adv_websites.tworca_strony
+WHERE adv_books.rodzaj_ksiazki = 'religijna' AND adv_websites.rodzaj_strony = 'religijna'
+# =>>> projektowa
+# SELECT adv_books.rodzaj_ksiazki, adv_books.rok_rozpoczecia, adv_websites.nazwa_strony,
+adv_websites.strona_www FROM adv_books JOIN adv_websites ON adv_books.autor = adv_websites.tworca_strony
+WHERE adv_books.rodzaj_ksiazki = 'projektowa' AND adv_websites.rodzaj_strony = 'projektowa'
+# e) wyświetl nazwę strony podróżniczej wraz z nazwami oraz linkami do filmików
+# SELECT adv_websites.nazwa_strony, adv_travel.nazwa_filmu, adv_travel.www_youtube FROM
+adv_websites JOIN adv_travel ON adv_websites.nazwa_strony = adv_travel.nazwa_kanalu
+# f) wyświetl wszystkie rodzaje i nazwy stron internetowych
+# SELECT adv_websites.rodzaj_strony, adv_websites.nazwa_strony FROM adv_websites
+# g) wyświetl wyłącznie nazwę strony wydawnictwa oraz podróżniczej
+# wraz z linkiem do oficjalnej strony internetowej www
+# SELECT adv_websites.nazwa_strony, adv_websites.strona_www FROM adv_websites
+WHERE (adv_websites.nazwa_strony = 'ADV Publishing' OR adv_websites.nazwa_strony = 'Just Travel Today')
+
+==> Utwórz w JAVA program, który będzie wyświetlać poniższe menu
+1) Dodaj nowy rekord do bazy danych, jeden wiersz (krotkę) do tabeli 'adv_books'
+2) Usuń wybrany wpis, rejestr z tabli 'adv_books' z bazy danych [niedostępne]
+3) Początki publikacji poszczególnych rodzajów
+książek dla 2018 lub 2019 roku <<< dla a),b) >>>
+4) Wyświetl początki publikacji wszystkich rodzajów
+książek z roku 2018 i 2019 <<< dla c) >>>
+5) Wyświetl rodzaj ksiązki, jej początki, nazwę strony
+i odnośnik do strony www ->>> rozwijane menu <<< dla d) >>>
+	5.1) muzyczna
+	5.2) edukacyjna
+	5.3) naukowa
+	5.4) religijna
+	5.5) projektowa
+6) Wyświetl stronę i filmiki podróżnicze
+[Just Travel Today] <<< dla e) >>>
+7) Wyświetl wszystkie rodzaje oraz nazwy
+stron internetowych <<< dla f) >>>
+8) Wyświetl stronę wydawnictwa ADV Publishing oraz
+blog podróżniczy Just Travel Today <<< dla g) >>>
+9) Wpisz wartość 9, aby zakończyć program
