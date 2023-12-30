@@ -1,0 +1,56 @@
+<nz-layout>
+  <nz-content>
+    <div class="inner-content">
+      <div nz-row>
+        <div nz-col nzSpan="14" nzOffset="5">
+          <h1>LuqTwo ToDoList App [Ukryta / Hidden ToDoList]</h1>
+          <h3>Create todos and remember their order! / Stwórz zadania i zapamiętaj ich kolejność!</h3>
+          <h3>Use new, creative ToDoList App today! / Używaj już dzisiaj kreatynie ToDoList'ę! ;></h3>
+          <h3>You remember todos! Try once again! / Pamiętasz zadania! Spróbuj ponownie! ^_^</h3>
+          <app-todo-form [refresh]="this.loadAll"></app-todo-form>
+          <nz-list nzItemLayout="horizontal">
+            <nz-list-item *ngFor="let todo of todos$ | async">
+              <ng-container>
+                <nz-tag [nzColor]="'purple'">{{ todo.TitleTytul
+                ||'Hidden Title. I know that you remember! ;p / Tytuł Ukryty. Wiem, że pamiętasz! ;p' }}</nz-tag>
+                <!-- 
+                <nz-tag [nzColor]="'purple'">{ 
+                  if (todo.TitleTytul == string){
+                    return 'TitleTytul'
+                  }
+                  else{
+                    return 'Default Title / Tytuł Ukryty';
+                  }}</nz-tag>
+                
+                <nz-tag [nzColor]="'purple'">{{ todo.TitleTytul }}</nz-tag>-->
+                <ul nz-list-item-actions>
+                  <nz-list-item-action>
+                    <nz-switch
+                      [(ngModel)]="todo.CompletedUkonczone"
+                      (click)="changeStatus(todo)"
+                      nz-tooltip
+                      nzTooltipTitle="Change Todo Status / Zmień Status Zadania">
+                    </nz-switch>
+                  </nz-list-item-action>
+                  <nz-list-item-action>
+                    <button
+                      nz-button
+                      nzType="primary"
+                      nzDanger
+                      nz-popconfirm
+                      nzPopconfirmTitle="Are you sure? Delete / Jesteś pewny? Usunąć?"
+                      nzPopconfirmPlacement="top"
+                      (nzOnConfirm)="deleteTodo(todo)"
+                      (nzOnCancel)="cancel()">
+                      X
+                    </button>
+                  </nz-list-item-action>
+                </ul>
+              </ng-container>
+            </nz-list-item>
+          </nz-list>
+        </div>
+      </div>
+    </div>
+  </nz-content>
+</nz-layout>
